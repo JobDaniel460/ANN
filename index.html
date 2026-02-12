@@ -157,6 +157,34 @@
             margin-bottom:30px;
         }
 
+        /* 💌 Soft Paper Love Letter */
+.letter {
+    max-width: 90%;
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 15px;
+    background: #fff8dc;
+    color: #d63384;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(20px, 5vw, 26px);
+    line-height: 1.8;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+    white-space: pre-line;
+    position: relative;
+}
+
+/* Cute blinking cursor */
+.letter::after {
+    content: "💗";
+    margin-left: 8px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
     </style>
 </head>
 
@@ -181,8 +209,8 @@
 <!-- PASSWORD -->
 <div id="passwordScreen" class="overlay hidden">
     <div class="box">
-        <h1>One Last Secret 💌</h1>
-        <input type="password" id="passwordInput" placeholder="Enter password">
+        <h1>Us 💌</h1>
+        <input type="password" id="passwordInput" placeholder="Our Date">
         <br>
         <button onclick="checkPassword()">Unlock ❤️</button>
     </div>
@@ -193,15 +221,16 @@
 
     <div class="section">
         <img src="photo1.jpeg">
-        <h1>1.5 Years</h1>
-        <p>547 days of loving you. And somehow it still feels like day one.</p>
+        <h1>1 year, 9 months, 12 days</h1>
+        <p>653 days of loving you. And by each passing day I love you more .</p>
         <button onclick="nextSlide()">Next</button>
     </div>
 
     <div class="section">
         <img src="photo2.jpeg">
         <h1>Long Distance</h1>
-        <p>Miles apart but never apart at heart. Every late night call meant everything.</p>
+        <p>Miles apart but never apart at heart. Every late night call meant everything.
+            Every terrace visit makes me feel loved.</p>
         <button onclick="nextSlide()">Next</button>
     </div>
 
@@ -216,6 +245,9 @@
         <img src="photo4.jpeg">
         <h1>Always You ❤️</h1>
         <p>I still choose you. Today. Tomorrow. Always. Happy Valentine’s Day ❤️</p>
+
+        <div id="loveLetter" class="letter"></div>
+
     </div>
 
 </div>
@@ -240,7 +272,7 @@
     setInterval(createHeart,800);
 
     /* Countdown */
-    const unlockDate = new Date("Feb 11, 2026 00:00:00").getTime();
+    const unlockDate = new Date("Feb 14, 2026 11:59:59").getTime();
     const countdownEl = document.getElementById("countdown");
     const continueBtn = document.getElementById("continueBtn");
 
@@ -271,7 +303,7 @@
     }
 
     function checkPassword(){
-        const correctPassword = "us";
+        const correctPassword = "01052024";
         const input = document.getElementById("passwordInput").value;
 
         if(input === correctPassword){
@@ -282,14 +314,44 @@
         }
     }
 
-    let currentIndex = 0;
-    function nextSlide(){
-        if(currentIndex < 3){
-            currentIndex++;
-            document.getElementById("slider").style.transform =
-                `translateX(-${currentIndex * 100}vw)`;
+let currentIndex = 0;
+let typingStarted = false;
+
+   function nextSlide(){
+    if(currentIndex < 3){
+        currentIndex++;
+        document.getElementById("slider").style.transform =
+            `translateX(-${currentIndex * 100}vw)`;
+
+        // When last slide opens → start typing
+        if(currentIndex === 3 && !typingStarted){
+            typingStarted = true;
+            setTimeout(typeLetter, 800);
         }
     }
+}
+
+    /* 💌 Cute Typing Love Letter */
+const letterText = `My favorite human 💖,
+
+Meeting you is and will be the best part of my life...
+
+You make me smile ,
+laugh at silly things, helped me be a better person
+and feel safe just by being there.
+
+I hope and pray I can be your idiot forever,
+who loves you a little too much 💕`;
+
+let letterIndex = 0;
+
+function typeLetter() {
+    if (letterIndex < letterText.length) {
+        document.getElementById("loveLetter").innerHTML += letterText.charAt(letterIndex);
+        letterIndex++;
+        setTimeout(typeLetter, 40);
+    }
+}
 
 </script>
 
