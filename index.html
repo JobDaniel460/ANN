@@ -1,344 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
 
-body {
-  background:#0c0c0f;
-  color:#f5f5f5;
-  font-family:'Playfair Display', serif;
-  overflow-x:hidden;
-}
+        body{
+            font-family:'Playfair Display',serif;
+            background:#000;
+            color:#fff;
+            overflow:hidden;
+        }
 
-/* PASSWORD SCREEN */
-.password-screen {
-  position:fixed;
-  width:100%;
-  height:100vh;
-  background:radial-gradient(circle at center,#1a1a1f,#0c0c0f);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-  transition:1s ease;
-}
+        /* ================= FLOATING HEARTS ================= */
 
-.password-screen h1 {
-  font-family:'Great Vibes', cursive;
-  font-size:3.5rem;
-  color:#ffccd5;
-  margin-bottom:20px;
-}
+        .hearts{
+            position:fixed;
+            width:100%;
+            height:100vh;
+            top:0;
+            left:0;
+            pointer-events:none;
+            z-index:0;
+        }
 
-.password-screen input {
-  padding:12px 20px;
-  background:transparent;
-  border:1px solid #ffccd5;
-  color:#fff;
-  font-size:1rem;
-  outline:none;
-  margin-bottom:15px;
-  text-align:center;
-}
+        .heart{
+            position:absolute;
+            bottom:-20px;
+            color:rgba(255,0,90,0.4);
+            font-size:20px;
+            animation:floatUp linear infinite;
+        }
 
-.password-screen button {
-  padding:10px 25px;
-  border:1px solid #ffccd5;
-  background:transparent;
-  color:#ffccd5;
-  cursor:pointer;
-  transition:.4s;
-}
+        @keyframes floatUp{
+            from{
+                transform:translateY(0) scale(1);
+                opacity:0.7;
+            }
+            to{
+                transform:translateY(-110vh) scale(1.5);
+                opacity:0;
+            }
+        }
 
-.password-screen button:hover {
-  background:#ffccd5;
-  color:#0c0c0f;
-}
+        /* ================= OVERLAYS ================= */
 
-.error {
-  color:#ff6b81;
-  margin-top:10px;
-  font-size:.9rem;
-  opacity:.8;
-}
+        .overlay{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(8px);
+            z-index:9999;
+            transition:opacity 1.5s ease, visibility 1.5s ease;
+        }
 
-.hide { opacity:0; pointer-events:none; }
+        .hidden{
+            opacity:0;
+            visibility:hidden;
+        }
 
-/* INTRO */
-.intro {
-  position:fixed;
-  width:100%;
-  height:100vh;
-  background:radial-gradient(circle at center,#1a1a1f,#0c0c0f);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-  transition:1.5s ease;
-}
+        .box{text-align:center;}
 
-.intro h1 {
-  font-family:'Great Vibes', cursive;
-  font-size:4rem;
-  color:#ffccd5;
-  margin-bottom:20px;
-}
+        .box h1{
+            font-family:'Great Vibes',cursive;
+            font-size:70px;
+        }
 
-.enter-btn {
-  padding:12px 30px;
-  border:1px solid #ffccd5;
-  background:transparent;
-  color:#ffccd5;
-  cursor:pointer;
-  transition:.4s;
-}
+        #countdown{
+            font-size:44px;
+            margin-top:25px;
+            letter-spacing:3px;
+        }
 
-.enter-btn:hover {
-  background:#ffccd5;
-  color:#0c0c0f;
-}
+        button{
+            margin-top:35px;
+            padding:14px 35px;
+            border:none;
+            border-radius:30px;
+            background:rgba(255,255,255,0.1);
+            color:#fff;
+            font-size:18px;
+            cursor:pointer;
+            transition:all 0.4s ease;
+        }
 
-/* Floating particles */
-.particle {
-  position:fixed;
-  width:3px;
-  height:3px;
-  background:#ffccd5;
-  border-radius:50%;
-  opacity:.3;
-  animation:float 12s linear infinite;
-}
+        button:hover{
+            background:rgba(255,255,255,0.3);
+        }
 
-@keyframes float {
-  from { transform:translateY(100vh); }
-  to { transform:translateY(-10vh); }
-}
+        input{
+            margin-top:25px;
+            padding:12px;
+            width:240px;
+            border:none;
+            border-radius:12px;
+            text-align:center;
+        }
 
-/* Sections */
-.section {
-  min-height:100vh;
-  padding:100px 20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
+        /* ================= SLIDER ================= */
 
-.content { transition:1s ease; }
+        .slider{
+            display:flex;
+            width:400%;
+            height:100vh;
+            transition:transform 1.2s ease-in-out;
+            position:relative;
+            z-index:1;
+        }
 
-.locked .content {
-  filter:blur(10px);
-  opacity:.3;
-}
+        .section{
+            width:100vw;
+            height:100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:40px;
+        }
 
-.photo {
-  width:260px;
-  height:260px;
-  object-fit:cover;
-  border-radius:20px;
-  margin:20px 0;
-  box-shadow:0 0 40px rgba(255,192,203,.2);
-}
+        .section img{
+            width:420px;
+            height:420px;
+            object-fit:cover;
+            border-radius:30px;
+            margin-bottom:35px;
+            box-shadow:0 0 60px rgba(255,0,90,0.3);
+            transition:transform 0.6s ease;
+        }
 
-.countdown {
-  margin-top:25px;
-  color:#ffccd5;
-  font-weight:600;
-}
+        .section img:hover{
+            transform:scale(1.05);
+        }
 
-.fade {
-  opacity:0;
-  transform:translateY(40px);
-  transition:1.5s ease;
-}
+        .section h1{
+            font-family:'Great Vibes',cursive;
+            font-size:64px;
+            margin-bottom:20px;
+        }
 
-.fade.visible {
-  opacity:1;
-  transform:translateY(0);
-}
+        .section p{
+            max-width:700px;
+            font-size:21px;
+            line-height:1.7;
+            margin-bottom:30px;
+        }
 
-.hero h1 {
-  font-family:'Great Vibes', cursive;
-  font-size:4rem;
-  color:#ffccd5;
-}
-
-.typing {
-  border-right:2px solid #ffccd5;
-  white-space:nowrap;
-  overflow:hidden;
-}
-
-footer {
-  padding:40px;
-  text-align:center;
-  opacity:.4;
-  font-size:.8rem;
-}
-</style>
+    </style>
 </head>
+
 <body>
 
-<!-- PASSWORD SCREEN -->
-<div class="password-screen" id="passwordScreen">
-  <h1>For You 🌙</h1>
-  <input type="password" id="passwordInput" placeholder="Enter our secret...">
-  <button onclick="checkPassword()">Unlock</button>
-  <div class="error" id="errorMsg"></div>
-</div>
-
-<!-- INTRO -->
-<div class="intro hide" id="intro">
-  <h1>Happy Valentine’s Day ❤️</h1>
-  <button class="enter-btn" onclick="enterPage()">Enter</button>
-</div>
+<!-- Floating Hearts Container -->
+<div class="hearts" id="hearts"></div>
 
 <audio id="bgMusic" loop>
-  <source src="your-music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Floating particles -->
-<script>
-for(let i=0;i<25;i++){
-  let p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDuration=(8+Math.random()*10)+"s";
-  document.body.appendChild(p);
-}
-</script>
-
-<!-- HERO -->
-<div class="section hero fade">
-  <h1>1.5 Years With You ❤️</h1>
-  <p id="loveLetter" class="typing"></p>
+<!-- COUNTDOWN -->
+<div id="countdownScreen" class="overlay">
+    <div class="box">
+        <h1>Our Special Moment ❤️</h1>
+        <div id="countdown"></div>
+        <button id="continueBtn" style="display:none;" onclick="showPassword()">Continue ❤️</button>
+    </div>
 </div>
 
-<!-- SECTION 1 -->
-<div class="section locked fade" id="section1">
-  <div class="content">
-    <h2>The Beginning 🌙</h2>
-    <img src="photo1.jpg" class="photo">
-    <p>That first smile.  
-    That first late night call.</p>
-  </div>
-  <div class="countdown" id="count1"></div>
+<!-- PASSWORD -->
+<div id="passwordScreen" class="overlay hidden">
+    <div class="box">
+        <h1>One Last Secret 💌</h1>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <br>
+        <button onclick="checkPassword()">Unlock ❤️</button>
+    </div>
 </div>
 
-<!-- SECTION 2 -->
-<div class="section locked fade" id="section2">
-  <div class="content">
-    <h2>Our Beautiful Chaos 😅</h2>
-    <img src="photo2.jpg" class="photo">
-    <p>We argue.  
-    We laugh.  
-    But we always choose us.</p>
-  </div>
-  <div class="countdown" id="count2"></div>
-</div>
+<!-- SLIDER -->
+<div class="slider" id="slider">
 
-<!-- SECTION 3 -->
-<div class="section locked fade" id="section3">
-  <div class="content">
-    <h2>Still My Favorite 💖</h2>
-    <img src="photo3.jpg" class="photo">
-    <p>You are my calm.  
-    My happiness.  
-    My home.</p>
-  </div>
-  <div class="countdown" id="count3"></div>
-</div>
+    <div class="section">
+        <img src="photo1.jpeg">
+        <h1>1.5 Years</h1>
+        <p>547 days of loving you. And somehow it still feels like day one.</p>
+        <button onclick="nextSlide()">Next</button>
+    </div>
 
-<!-- FINAL -->
-<div class="section locked fade" id="section4">
-  <div class="content">
-    <h2>One Last Thing… 🎬</h2>
-    <video width="300" controls>
-      <source src="final-video.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="countdown" id="count4"></div>
-</div>
+    <div class="section">
+        <img src="photo2.jpeg">
+        <h1>Long Distance</h1>
+        <p>Miles apart but never apart at heart. Every late night call meant everything.</p>
+        <button onclick="nextSlide()">Next</button>
+    </div>
 
-<footer>Made with love 🤍</footer>
+    <div class="section">
+        <img src="photo3.jpeg">
+        <h1>My Favorite Person</h1>
+        <p>My peace. My chaos. My comfort. My forever notification.</p>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+
+    <div class="section">
+        <img src="photo4.jpeg">
+        <h1>Always You ❤️</h1>
+        <p>I still choose you. Today. Tomorrow. Always. Happy Valentine’s Day ❤️</p>
+    </div>
+
+</div>
 
 <script>
-const correctPassword="our15months";
 
-/* Password Check */
-function checkPassword(){
-  const input=document.getElementById("passwordInput").value;
-  if(input===correctPassword){
-    document.getElementById("passwordScreen").classList.add("hide");
-    document.getElementById("intro").classList.remove("hide");
-  } else {
-    document.getElementById("errorMsg").innerText="That’s not our secret ❤️";
-  }
-}
+    /* Floating Hearts Generator */
+    const heartsContainer = document.getElementById("hearts");
 
-/* Enter */
-function enterPage(){
-  document.getElementById("intro").classList.add("hide");
-  document.getElementById("bgMusic").play();
-}
+    function createHeart(){
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (15 + Math.random()*25) + "px";
+        heart.style.animationDuration = (8 + Math.random()*10) + "s";
+        heartsContainer.appendChild(heart);
 
-/* Typing Effect */
-const text="1.5 years… and I still choose you. Every single day.";
-let i=0;
-function typeWriter(){
-  if(i<text.length){
-    document.getElementById("loveLetter").innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(typeWriter,60);
-  }
-}
-typeWriter();
-
-/* Fade */
-const faders=document.querySelectorAll('.fade');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
+        setTimeout(()=>{heart.remove();},18000);
     }
-  });
-});
-faders.forEach(el=>observer.observe(el));
 
-/* Unlock Timers */
-const unlockTimes={
-  section1:5,
-  section2:15,
-  section3:25,
-  section4:40
-};
+    setInterval(createHeart,800);
 
-Object.keys(unlockTimes).forEach((sectionId,index)=>{
-  const section=document.getElementById(sectionId);
-  const countdown=document.getElementById("count"+(index+1));
-  let timeLeft=unlockTimes[sectionId];
+    /* Countdown */
+    const unlockDate = new Date("Feb 11, 2026 00:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    const continueBtn = document.getElementById("continueBtn");
 
-  const interval=setInterval(()=>{
-    if(timeLeft>0){
-      countdown.innerText="Unlocking in "+timeLeft+" seconds...";
-      timeLeft--;
-    } else {
-      clearInterval(interval);
-      section.classList.remove("locked");
-      countdown.innerText="Unlocked ❤️";
+    const timer = setInterval(()=>{
+        const now = new Date().getTime();
+        const distance = unlockDate - now;
+
+        if(distance <= 0){
+            clearInterval(timer);
+            countdownEl.innerHTML = "00d : 00h : 00m : 00s";
+            continueBtn.style.display = "inline-block";
+            return;
+        }
+
+        const days = Math.floor(distance/(1000*60*60*24));
+        const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+        const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+        const seconds = Math.floor((distance%(1000*60))/1000);
+
+        countdownEl.innerHTML =
+            `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+
+    },1000);
+
+    function showPassword(){
+        document.getElementById("countdownScreen").classList.add("hidden");
+        document.getElementById("passwordScreen").classList.remove("hidden");
     }
-  },1000);
-});
+
+    function checkPassword(){
+        const correctPassword = "us";
+        const input = document.getElementById("passwordInput").value;
+
+        if(input === correctPassword){
+            document.getElementById("passwordScreen").classList.add("hidden");
+            document.getElementById("bgMusic").play();
+        } else {
+            alert("Wrong password ❤️ Try again.");
+        }
+    }
+
+    let currentIndex = 0;
+    function nextSlide(){
+        if(currentIndex < 3){
+            currentIndex++;
+            document.getElementById("slider").style.transform =
+                `translateX(-${currentIndex * 100}vw)`;
+        }
+    }
+
 </script>
 
 </body>
