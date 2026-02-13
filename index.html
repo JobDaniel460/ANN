@@ -196,6 +196,9 @@
 <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
+<audio id="finalMusic" loop>
+    <source src="final-song.aac" type="audio/mpeg">
+</audio>
 
 <!-- COUNTDOWN -->
 <div id="countdownScreen" class="overlay">
@@ -247,7 +250,9 @@
         <p>I still choose you. Today. Tomorrow. Always. Happy Valentine’s Day ❤️</p>
 
         <div id="loveLetter" class="letter"></div>
-
+        <button id="musicToggle" onclick="toggleFinalMusic()" style="display:none;">
+            ⏸ Pause Music
+        </button>
     </div>
 
 </div>
@@ -272,7 +277,7 @@
     setInterval(createHeart,800);
 
     /* Countdown */
-    const unlockDate = new Date("Feb 14, 2026 11:59:59").getTime();
+    const unlockDate = new Date("Feb 11, 2026 11:59:59").getTime();
     const countdownEl = document.getElementById("countdown");
     const continueBtn = document.getElementById("continueBtn");
 
@@ -317,19 +322,31 @@
 let currentIndex = 0;
 let typingStarted = false;
 
-   function nextSlide(){
+ function nextSlide(){
     if(currentIndex < 3){
         currentIndex++;
         document.getElementById("slider").style.transform =
             `translateX(-${currentIndex * 100}vw)`;
 
-        // When last slide opens → start typing
+        // When last slide opens
         if(currentIndex === 3 && !typingStarted){
             typingStarted = true;
+
+            // Stop background music
+            document.getElementById("bgMusic").pause();
+
+            // Play final song
+            const finalMusic = document.getElementById("finalMusic");
+            finalMusic.play();
+
+            // Show pause button
+            document.getElementById("musicToggle").style.display = "inline-block";
+
             setTimeout(typeLetter, 800);
         }
     }
 }
+
 
     /* 💌 Cute Typing Love Letter */
 const letterText = `My favorite human 💖,
@@ -350,6 +367,19 @@ function typeLetter() {
         document.getElementById("loveLetter").innerHTML += letterText.charAt(letterIndex);
         letterIndex++;
         setTimeout(typeLetter, 40);
+    }
+}
+
+function toggleFinalMusic(){
+    const finalMusic = document.getElementById("finalMusic");
+    const btn = document.getElementById("musicToggle");
+
+    if(finalMusic.paused){
+        finalMusic.play();
+        btn.innerHTML = "⏸ Pause Music";
+    } else {
+        finalMusic.pause();
+        btn.innerHTML = "▶ Play Music";
     }
 }
 
